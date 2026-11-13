@@ -59,7 +59,7 @@ export function ExportPdfDialog({ pattern, palette, name, onClose }: Props) {
               ]} />
             </Field>
             <Field label="Bead size">
-              <select value={BEAD_SIZES.find((b) => b.pitch === o.pitch)?.id ?? 'other'} onChange={(e) => { const b = BEAD_SIZES.find((b) => b.id === e.target.value); if (b) set({ pitch: b.pitch }); }}>
+              <select value={BEAD_SIZES.find((b) => b.pitch === o.pitch)?.id ?? 'other'} onChange={(e) => { const b = BEAD_SIZES.find((b) => b.id === e.target.value); if (b) set({ pitch: b.pitch, boardW: b.board, boardH: b.board }); }}>
                 {BEAD_SIZES.map((b) => <option key={b.id} value={b.id}>{b.label}</option>)}
                 <option value="other" disabled>Custom</option>
               </select>

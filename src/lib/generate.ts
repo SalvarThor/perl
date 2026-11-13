@@ -61,7 +61,12 @@ export interface GenerateResult {
 export function allowedColors(palette: Palette, s: Pick<GenerateSettings, 'ownedOnly' | 'includeEffects' | 'excluded'>, owned: string[] | undefined) {
   const ownedSet = s.ownedOnly && owned ? new Set(owned) : null;
   const ex = new Set(s.excluded);
-  return prepare(palette).filter((c) => (s.includeEffects || !c.effect) && (!ownedSet || ownedSet.has(c.code)) && !ex.has(c.code));
+  return prepare(palette).filter((c) =>
+    (s.includeEffects || !c.effect) &&
+    (!ownedSet || ownedSet.has(c.code)) &&
+    // Discontinued colors are only used if you have marked them as owned
+    (!c.discontinued || !!ownedSet?.has(c.code)) &&
+    !ex.has(c.code));
 }
 
 let pixelCache: { img: SourceImage; scale: PixelScale | null } | null = null;

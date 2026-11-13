@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { deltaE2000, hexToRgb, rgbToLab } from './color';
-import { runGenerate, DEFAULT_SETTINGS } from './generate';
+import { allowedColors, runGenerate, DEFAULT_SETTINGS } from './generate';
 import { detectPixelScale, planSize, type SourceImage } from './image';
 import { BUILTIN_PALETTES, parseCustomPalette, prepare } from './palette';
 import { deserializeProject, ellipsePoints, emptyPattern, floodFill, linePoints, resizeCanvas, rotate, serializeProject, trim } from './pattern';
@@ -21,6 +21,14 @@ describe('palettes', () => {
     expect(hama.colors.length).toBeGreaterThan(80);
     expect(new Set(hama.colors.map((c) => c.code)).size).toBe(hama.colors.length);
     for (const p of BUILTIN_PALETTES) for (const c of p.colors) expect(c.hex).toMatch(/^#[0-9A-F]{6}$/);
+  });
+  it('matches the official Hama chart: new colors present, old ones excluded from generation', () => {
+    const codes = new Set(hama.colors.map((c) => c.code));
+    for (const c of ['H120', 'H121', 'H122']) expect(codes.has(c)).toBe(true);
+    const base = { ownedOnly: false, includeEffects: true, excluded: [] };
+    const allowed = allowedColors(hama, base, undefined).map((c) => c.code);
+    expect(allowed).not.toContain('H33');
+    expect(allowedColors(hama, { ...base, ownedOnly: true }, ['H33', 'H01']).map((c) => c.code)).toEqual(['H01', 'H33']);
   });
   it('parses CSV custom palettes', () => {
     const p = parseCustomPalette('code,name,hex\n1,White,#ffffff\n2,Black,000000,effect\n2,Dup,#123456', 'Mine');

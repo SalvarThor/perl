@@ -48,13 +48,13 @@ export function PaletteManager({ palettes, owned, onOwned, onAddPalette, onDelet
         {palette.custom && <button onClick={() => { if (confirm(`Delete palette "${palette.name}"?`)) { onDeletePalette(palette.id); setId(palettes[0].id); } }}>Delete palette</button>}
       </div>
       <p className="muted small">
-        Tap colors to mark which ones you own. Then turn on "Only colors I own" in the generator.
+        Tap colors to mark which ones you own. Then turn on "Only colors I own" in the generator. Discontinued colors are only used by the generator if you mark them as owned.
         {palette.source && <> Color values: {palette.source}</>}
       </p>
       <div className="row wrap">
         <button onClick={() => setAll(() => true)}>Own all</button>
         <button onClick={() => setAll(() => false)}>Own none</button>
-        <button onClick={() => setAll((c) => !c.effect)}>Solid colors only</button>
+        <button onClick={() => setAll((c) => !c.effect && !c.discontinued)}>Current solid colors</button>
         {ownedList && <button onClick={() => onOwned(palette.id, undefined)} title="Forget owned colors for this palette">Reset</button>}
         <button onClick={() => downloadBlob(new Blob([[...ownedSet].join('\n')], { type: 'text/plain' }), safeFilename(palette.name) + '-owned.txt')}>Export owned list</button>
         <span className="spacer" />
@@ -71,7 +71,7 @@ export function PaletteManager({ palettes, owned, onOwned, onAddPalette, onDelet
           return (
             <button key={c.code} className={'owned-card' + (on ? ' on' : '')} onClick={() => toggle(c.code)} title={c.hex}>
               <span className="owned-swatch" style={{ background: c.hex, color: contrastText(c.hex) }}>{shortCode(c.code)}{c.effect && <small> fx</small>}</span>
-              <span className="owned-name"><b>{c.code}</b> {c.name}</span>
+              <span className="owned-name"><b>{c.code}</b> {c.name}{c.discontinued && <span className="muted"> (discontinued)</span>}{c.approx && <span className="muted"> (approx. color)</span>}</span>
               <span className="owned-check">{on ? '✓' : ''}</span>
             </button>
           );

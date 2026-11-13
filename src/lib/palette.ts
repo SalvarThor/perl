@@ -9,6 +9,10 @@ export interface BeadColor {
   hex: string;
   /** Translucent, neon, glow, metallic, pearl... colors a single RGB value can't represent well. */
   effect: boolean;
+  /** No longer on the manufacturer's current color chart. */
+  discontinued?: boolean;
+  /** Color value is a rough approximation (e.g. sampled from a product photo). */
+  approx?: boolean;
 }
 
 export interface Palette {

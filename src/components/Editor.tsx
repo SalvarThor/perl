@@ -317,7 +317,7 @@ export function Editor({ project, palette, owned, onChange }: Props) {
                 {paletteList.map(({ c, i }) => (
                   <button key={c.code} className={'swatch-btn' + (i === color ? ' selected' : '')} style={{ background: c.hex }}
                     onClick={() => { setColor(i); if (tool === 'eraser' || tool === 'picker' || tool === 'pan') setTool('pencil'); }}
-                    title={`${c.code} ${c.name}${c.effect ? ' (effect)' : ''}`}>
+                    title={`${c.code} ${c.name}${c.effect ? ' (effect)' : ''}${c.discontinued ? ' (discontinued)' : ''}`}>
                     <span style={{ color: contrastText(c.hex) }}>{shortCode(c.code)}</span>
                   </button>
                 ))}

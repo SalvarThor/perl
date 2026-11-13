@@ -34,10 +34,11 @@ export const PAGE_SIZES: PageSizePreset[] = [
   { id: 'custom', label: 'Custom size', w: 200, h: 200, screen: false },
 ];
 
+/** Board sizes are Hama's large square pegboards (841 / 3,249 / 256 pegs). */
 export const BEAD_SIZES = [
-  { id: 'mini', label: 'Mini (2.5 mm)', pitch: 2.5 },
-  { id: 'midi', label: 'Midi / Perler (5 mm)', pitch: 5 },
-  { id: 'maxi', label: 'Maxi (10 mm)', pitch: 10 },
+  { id: 'mini', label: 'Mini (2.5 mm)', pitch: 2.5, board: 57 },
+  { id: 'midi', label: 'Midi / Perler (5 mm)', pitch: 5, board: 29 },
+  { id: 'maxi', label: 'Maxi (10 mm)', pitch: 10, board: 16 },
 ];
 
 export interface PdfOptions {

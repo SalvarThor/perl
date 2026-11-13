@@ -59,4 +59,8 @@ The build uses relative paths, so `dist/` can be served from any static host. `.
 
 ## Color data
 
-Bead RGB values are community-sampled approximations from [maxcleme/beadcolors](https://github.com/maxcleme/beadcolors) (MIT), via the [@meltbead/bead-colors](https://www.npmjs.com/package/@meltbead/bead-colors) package (MIT). See `src/palettes/LICENSE-*.txt`. Hama doesn't publish official RGB values, and screen colors never exactly match physical beads.
+- **Hama:** color numbers, names and availability follow Hama's official Midi colour palette (hama.dk, 2025 edition). That's 88 current colors: 67 solid and 21 effect. Seven older colors that are no longer on the chart (H25, H33, H39-H42, H57) stay in the palette but are marked discontinued. The generator only uses them if you mark them as owned.
+- **RGB values:** community measurements of physical beads from [maxcleme/beadcolors](https://github.com/maxcleme/beadcolors) (MIT), via the [@meltbead/bead-colors](https://www.npmjs.com/package/@meltbead/bead-colors) package (MIT). See `src/palettes/LICENSE-*.txt`.
+  - Hama doesn't publish RGB values. Its chart uses bead photos, and sampling them gives inconsistent results, so they are only used for the three colors missing from the community data (H120 Dusty Blue, H121 Fuchsia Pink, H122 Mustard). Those three are marked as approximate.
+  - Screen colors never exactly match physical beads.
+- **Pegboards:** Hama's large square boards have 29 x 29 pegs (Midi), 57 x 57 (Mini) and 16 x 16 (Maxi). Choosing a bead size in the PDF export sets the matching board size. Hama doesn't publish peg spacing; 5 mm for Midi is the common value. Check it against your board with the PDF's scale check page.
